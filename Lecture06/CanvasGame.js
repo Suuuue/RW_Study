@@ -1,34 +1,46 @@
-function draw() {
-    var context;
-    var canvas = document.getElementById("canvas");
-    if (canvas.getContext) {
-        context = canvas.getContext("2d");
+var canvas = document.getElementById('canvas');
+var context =canvas.getContext('2d');
+
+class player{
+    constructor(x,y,r,c){
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.c = c
     }
 
-    canvas.onclick = function (e) {
-    constructor(position_x,position_y,radius,color)
-    {
-        this.position_x = this.position_x
-        this.position_y = this.position_y
-    } 
-}
-class Player
-{
-    constructor(x,y,radius,color)
-    {
-        this.pos_x; = pos_x;
-        this.pos_y = pos_y;
-        this.radius = radius;
-        this.color = color;
-    }
-    draw()
-    {
+    draw() {
         context.beginPath();
-        context.arc(this.pos_x, this.pos_y,this.radius,0,2*Math.PI)
-        context.fillStyle = this.color;
+        context.fillStyle = this.c
+        context.arc(this.x, this.y, this.r, 0, 2*Math.PI);
         context.fill();
         context.closePath();
     }
 }
-var char_Player = new Player(100,100,30,"pink");
-char_Player.draw(this.pos_x, this.pos_y,this.radius,0,2*Math.PI)
+
+var p = new player(450,450,50, "yellow");
+p.draw();
+var es = new Array();
+
+canvas.onclick = function(event){
+    const x = event.clientX - context.canvas.offsetLeft;
+    const y = event.clientY - context.canvas.offsetTop;
+    es.push(new Enemy(x,y));
+    es[es.length-1].draw();
+    console.log(es);
+}
+
+class Enemy{
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+    }
+
+    draw() {
+      context.beginPath();
+      context.fillStyle = "violet"
+      context.rect(this.x, this.y, 50, 50)
+      context.fill();
+      context.closePath();
+    }
+}
